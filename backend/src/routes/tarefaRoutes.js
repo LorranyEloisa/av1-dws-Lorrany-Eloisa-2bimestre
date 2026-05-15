@@ -9,37 +9,13 @@
 import express from "express";
 import * as TarefaController from "../controllers/tarefaController.js";
 
-// Cria um roteador do Express
 const router = express.Router();
 
-// ========================================
-// DEFINIÇÃO DAS ROTAS DE TAREFAS
-// ========================================
+// Routes based on schema.prisma model `Task` -> resource `tasks`
+router.get("/tasks", TarefaController.listar);
+router.get("/tasks/:id", TarefaController.buscarPorId);
+router.post("/tasks", TarefaController.criar);
+router.put("/tasks/:id", TarefaController.atualizar);
+router.delete("/tasks/:id", TarefaController.excluir);
 
-/**
- * GET /tarefas - Lista todas as tarefas
- */
-router.get("/tarefas", TarefaController.listarTarefas);
-
-/**
- * GET /tarefas/:id - Obtém uma tarefa específica
- */
-router.get("/tarefas/:id", TarefaController.obterTarefa);
-
-/**
- * POST /tarefas - Cria uma nova tarefa
- */
-router.post("/tarefas", TarefaController.criarTarefa);
-
-/**
- * PATCH /tarefas/:id - Atualiza uma tarefa parcialmente
- */
-router.patch("/tarefas/:id", TarefaController.atualizarTarefa);
-
-/**
- * DELETE /tarefas/:id - Remove uma tarefa
- */
-router.delete("/tarefas/:id", TarefaController.excluirTarefa);
-
-// Exporta o roteador para ser usado no app principal
 export default router;
