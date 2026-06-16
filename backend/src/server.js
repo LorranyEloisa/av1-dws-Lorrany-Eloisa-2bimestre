@@ -6,6 +6,7 @@
 // - Iniciar o servidor na porta especificada
 // - Separar a lógica de configuração da inicialização
 
+import { prisma } from "./config/prisma.js";
 import app from "./app.js";
 
 // Define a porta em que o servidor vai rodar
@@ -23,3 +24,20 @@ app.listen(PORT, () => {
   console.log(`📁 Arquitetura: MVC`);
   console.log(`========================================`);
 });
+async function main() {
+  try {
+    await prisma.$connect();
+    console.log("Conexão bem-sucedida com o banco de dados!");
+  } catch (error) {
+    console.error("Erro ao conectar ao banco de dados:", error);
+    process.exit(1);
+  }
+}
+
+process.on("SIGINT", async () => {
+  await prisma.$disconnect();
+  process.exit(0);
+});
+
+main();
+

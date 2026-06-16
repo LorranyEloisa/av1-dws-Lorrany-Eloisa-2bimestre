@@ -5,13 +5,14 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma" 
+  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
 // Modelo de Tarefa
 model Task {
   id          Int      @id @default(autoincrement())
@@ -19,10 +20,10 @@ model Task {
   description String?
   completed   Boolean  @default(false)
   createdAt   DateTime @default(now())
- 
+
   // Relacionamento com Categoria
-  categoryId  Int?
-  category    Category? @relation(fields: [categoryId], references: [id])
+  categoryId Int?
+  category   Category? @relation(fields: [categoryId], references: [id])
 }
 
 // Modelo de Categoria (Flexibilidade de temas)
